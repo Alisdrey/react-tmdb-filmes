@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+
+  margin-top: 2.5rem;
+
+  @media screen and (max-width: 739px) {
+    justify-content: center;
+  }
+}
+
+.contentPagination {
+  display: flex;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    white-space: nowrap;
+    line-height: 1.2;
+
+    border: none;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition-duration: 200ms;
+
+    height: 3rem;
+    min-width: 3rem;
+    margin: 0 0.313rem 0 0.313rem;
+
+    background: var(--gray-800);
+    color: var(--white);
+
+    &:disabled {
+      cursor: default;
+      background: var(--blue-800);
+    }
+  }
+
+  p {
+    color: var(--gray-300);
+    width: 2rem;
+    text-align: center;
+  }
+
+}

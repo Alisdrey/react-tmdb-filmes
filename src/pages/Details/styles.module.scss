@@ -1,0 +1,152 @@
+.section {
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  min-height: 100vh;
+  padding: 3.125rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+
+  max-width: 1144px;
+
+  >img {
+    border-radius: 14px;
+    border-width: 0px;
+    outline: none;
+  }
+
+  .facts {
+    display: flex;
+
+    p:nth-child(2) {
+      display: flex;
+      align-items: center;
+    }
+
+    p:nth-child(2)::before,
+    p:nth-child(2)::after {
+      content: "";
+      display: block;
+      margin: 0 10px;
+      width: 0.625rem;
+      height: 0.625rem;
+      background-color: white;
+      border-radius: 999px;
+    }
+  }
+
+  .information {
+    width: 863px;
+    height: 300px;
+  }
+
+  .contentRating {
+    display: flex;
+    align-items: center;
+
+    font-weight: 700;
+    white-space: pre-line;
+
+    margin: 1.563rem 0 0.938rem 0;
+  }
+
+  .circularProgressbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0.188rem dashed green;
+    border-radius: 50%;
+
+    width: 60px;
+    height: 60px;
+    margin-right: 0.625rem;
+  }
+
+  .tagLine {
+    font-style: italic;
+    opacity: 0.7;
+  }
+
+  @media screen and (max-width: 1210px) {
+    .information {
+      width: 720px;
+    }
+  }
+
+  @media screen and (max-width: 1040px) {
+    .information {
+      width: 650px;
+    }
+  }
+
+  @media screen and (max-width: 975px) {
+    .information {
+      width: 545px;
+    }
+  }
+
+  @media screen and (max-width: 860px) {
+    flex-direction: column;
+
+    .information {
+      width: auto;
+      height: auto;
+      margin-top: 35px;
+    }
+
+    .title,
+    .sinopseText {
+      font-size: 2rem;
+    }
+
+    .facts {
+      flex-direction: column;
+
+      p:nth-child(2)::before,
+      p:nth-child(2)::after {
+        display: none;
+      }
+    }
+  }
+}
+
+.title {
+  font-weight: 700;
+  font-size: 2.5rem;
+}
+
+.titleCategory {
+  font-weight: 700;
+  font-size: 1.875rem;
+  line-height: 4.688rem;
+}
+
+
+.contentSinopse {
+  margin: 1.25rem 0;
+  max-width: 800px;
+
+  .sinopseText {
+    font-size: 2.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+
+    margin-bottom: 0.5rem;
+  }
+
+  .description {
+    line-height: 1.5;
+    font-weight: 600;
+  }
+}
