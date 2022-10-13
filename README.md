@@ -12,7 +12,7 @@ cd react-tmdb-filmes
 yarn install ou npm install
 ```
 
-* Pegue uma API KEY em TMDB. Faça login usando sua conta e navegue até TMDB Configurações da conta. Copie a API KEY (v3 auth) e crie o seguinte arquivo .env.local na pasta raiz do projeto
+* Pegue uma API KEY em [TMDB](https://www.themoviedb.org/). Faça login usando sua conta e navegue até [TMDB Configurações da conta](https://www.themoviedb.org/settings/api). Copie a API KEY (v3 auth) e crie o seguinte arquivo .env.local na pasta raiz do projeto
 
 * Cole isso no seu arquivo .env.local e salve
 
