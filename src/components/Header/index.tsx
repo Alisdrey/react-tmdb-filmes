@@ -44,10 +44,8 @@ export const Header: React.FC = () => {
         setLoading(true);
         getSearchMovie(1, debouncedValue)
             .then((response: AxiosResponse) => {
-                if (response.status === 200) {
+                if (response.status === 200)
                     setListMovie(response.data.results);
-                }
-                console.log(response.data);
             })
             .catch((error: AxiosError) => {
                 handleCodeError(error);
