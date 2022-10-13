@@ -1,4 +1,4 @@
-export const colorRating = (rating: number) => {
+export const colorRating = (rating = 0) => {
   if (rating == 0) {
     return "#000000";
   } else if (rating > 0 && rating <= 3) {

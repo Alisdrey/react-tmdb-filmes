@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { GetPoster } from '../../utils/Cover';
@@ -25,13 +26,14 @@ export const MovieCards: React.FC<MovieCardsProps> = (props) => {
             </Visibility>
 
             <Visibility visible={!loading}>
-                <div className={styles.container}>
+                <div className={styles.container} data-testid="moviecard-container">
                     {listMovie.map((movie) => (
-                        <Link to={redirectMovieDetails(movie.id)} key={movie.id}>
-                            <img src={poster(movie.poster_path)} />
+                        <Link to={redirectMovieDetails(movie.id)} target="_blank" key={movie.id}>
+                            <img src={poster(movie?.poster_path)} />
+
                             <div className={styles.information}>
-                                <p>{movie.title}</p>
-                                <small>{movie.release_date}</small>
+                                <p>{movie?.title}</p>
+                                <small>{movie?.release_date}</small>
                             </div>
                         </Link>
                     ))}

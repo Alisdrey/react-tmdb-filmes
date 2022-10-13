@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 
 import { FeatureMovie } from '../../components/FeatureMovie';
@@ -7,9 +7,9 @@ import { Pagination } from '../../components/Pagination';
 
 import { MovieProps } from '../../models/Movie';
 import { getMoviePopular } from '../../services/movie.service';
+import { convertDate } from '../../utils/ConvertDate';
 
 import styles from './styles.module.scss';
-import { convertDate } from '../../utils/ConvertDate';
 
 export function Home() {
 
@@ -35,7 +35,7 @@ export function Home() {
 
         getMoviePopular(currentPage)
             .then((response: AxiosResponse) => {
-                if (response.status == 200) {
+                if (response.status === 200) {
 
                     response.data.results.map((item: MovieProps) => {
                         item.release_date = convertDate(item.release_date);
@@ -59,7 +59,7 @@ export function Home() {
         <>
             <FeatureMovie />
 
-            <section className={styles.section} ref={listScroll}>
+            <section className={styles.section} ref={listScroll} data-testid="home-section">
                 <h2>Os Mais Populares</h2>
 
                 <MovieCards listMovie={listMoviePopular} loading={loading} />

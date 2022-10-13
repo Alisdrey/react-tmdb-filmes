@@ -1,21 +1,20 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
-import { format } from 'date-fns';
-import ptBR from 'date-fns/locale/pt-BR';
 
 import { MovieDetails } from '../../models/Movie';
 
 import { getMovieDetails } from '../../services/movie.service';
+import { Visibility } from '../../components/Visibility';
 
 import { convertRuntime } from '../../utils/ConvertRunTime';
-import { GetPoster } from '../../utils/Cover';
 import { concatGenres } from '../../utils/ConcatGenres';
+import { convertDate } from '../../utils/ConvertDate';
+import { colorRating } from '../../utils/ColorRating';
+import { GetPoster } from '../../utils/Cover';
+
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 import styles from './styles.module.scss';
-import { convertDate } from '../../utils/ConvertDate';
-import { Visibility } from '../../components/Visibility';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 export const Details: React.FC = () => {
 
@@ -42,7 +41,7 @@ export const Details: React.FC = () => {
                     response.data.genres = concatGenres(response.data.genres.slice(0, 3));
                     response.data.runtime = convertRuntime(response.data.runtime);
                     response.data.release_date = convertDate(response.data.release_date);
-                    response.data.vote_average = `${Math.floor(response.data.vote_average * 10)}%`;
+                    response.data.vote_average_percentage = `${Math.floor(response.data.vote_average * 10)}%`;
 
                     setDetails(response.data);
                 }
@@ -62,9 +61,11 @@ export const Details: React.FC = () => {
     return (
         <>
             <Visibility visible={loading}>
-                <SkeletonTheme baseColor="#202020" highlightColor="#444">
-                    <Skeleton height={800} />
-                </SkeletonTheme>
+                <div data-testid="loading-id">
+                    <SkeletonTheme baseColor="#202020" highlightColor="#444">
+                        <Skeleton height={800} />
+                    </SkeletonTheme>
+                </div>
             </Visibility>
 
             <Visibility visible={!loading}>
@@ -84,8 +85,13 @@ export const Details: React.FC = () => {
                                 </div>
 
                                 <div className={styles.contentRating}>
-                                    <span className={styles.circularProgressbar}>
-                                        {details?.vote_average}
+                                    <span
+                                        className={styles.circularProgressbar}
+                                        style={{
+                                            border: `0.188rem dashed ${colorRating(details?.vote_average)}`
+                                        }}
+                                    >
+                                        {details?.vote_average_percentage}
                                     </span>
                                     Avaliação dos usuários
                                 </div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError, AxiosResponse } from 'axios';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
@@ -29,7 +29,7 @@ export const FeatureMovie: React.FC = () => {
     setLoading(true);
 
     getMovieTopRated().then((response: AxiosResponse) => {
-      if (response.status == 200)
+      if (response.status === 200)
         setMovieTopRated(response.data.results[0]);
     })
       .catch((error: AxiosError) => {
@@ -51,9 +51,11 @@ export const FeatureMovie: React.FC = () => {
   return (
     <>
       <Visibility visible={loading}>
-        <SkeletonTheme baseColor="#202020" highlightColor="#444">
-          <Skeleton height={800} />
-        </SkeletonTheme>
+        <div data-testid="loading-id">
+          <SkeletonTheme baseColor="#202020" highlightColor="#444">
+            <Skeleton height={800} />
+          </SkeletonTheme>
+        </div>
       </Visibility>
 
       <Visibility visible={(!loading)}>
@@ -67,7 +69,10 @@ export const FeatureMovie: React.FC = () => {
             <p className={styles.title}>{movieTopRated?.title}</p>
             <p className={styles.description}>{movieTopRated?.overview}</p>
 
-            <button onClick={() => handleDetailsMovie(movieTopRated?.id)}>
+            <button
+              onClick={() => handleDetailsMovie(movieTopRated?.id)}
+              data-testid="btn-id"
+            >
               <img src={iconInfo} alt="" /> Mais Informações
             </button>
           </div>

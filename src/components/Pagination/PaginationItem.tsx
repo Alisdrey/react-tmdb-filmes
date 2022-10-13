@@ -1,3 +1,4 @@
+import React from 'react';
 import { PaginationItemProps } from "./interface";
 
 export const PaginationItem: React.FC<PaginationItemProps> = (props) => {

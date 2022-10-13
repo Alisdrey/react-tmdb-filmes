@@ -23,6 +23,7 @@ export interface MovieDetails {
   release_date: string;
   title: string;
   vote_average: number;
+  vote_average_percentage?: number;
   runtime: string;
   genres: string;
   tagline: string;

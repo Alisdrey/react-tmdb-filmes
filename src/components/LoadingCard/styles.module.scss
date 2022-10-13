@@ -2,4 +2,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, auto));
   gap: 30px 20px;
+
+  @media screen and (max-width: 739px) {
+    flex-direction: column;
+    justify-content: center;
+  }
 }

@@ -1,5 +1,5 @@
 
-
+import React from 'react';
 import { PaginationItem } from './PaginationItem';
 import { Visibility } from '../Visibility';
 

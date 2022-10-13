@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AxiosError, AxiosResponse } from 'axios';
 
@@ -26,29 +26,43 @@ export const Header: React.FC = () => {
     });
     const [listMovie, setListMovie] = useState<MovieProps[]>();
     const [activeSearch, setActiveSearch] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
 
     const debouncedValue = useDebouncedValue(realTimeValue, 500);
 
     useEffect(() => {
         if (debouncedValue === "") {
+            setLoading(true);
             setListMovie([]);
             return;
         }
 
+        loadSearchMovie();
+    }, [debouncedValue]);
+
+    const loadSearchMovie = () => {
+        setLoading(true);
         getSearchMovie(1, debouncedValue)
             .then((response: AxiosResponse) => {
-                if (response.status === 200)
+                if (response.status === 200) {
                     setListMovie(response.data.results);
+                }
+                console.log(response.data);
             })
             .catch((error: AxiosError) => {
-                if (error.response?.status === 429) {
-                    setError({
-                        isError: true,
-                        message: "Limite de solicitações excedido. tente novamente em alguns segundos."
-                    });
-                }
+                handleCodeError(error);
+            })
+            .finally(() => setLoading(false));
+    };
+
+    const handleCodeError = (error: AxiosError) => {
+        if (error.response?.status === 429) {
+            setError({
+                isError: true,
+                message: "Limite de solicitações excedido. tente novamente em alguns segundos."
             });
-    }, [debouncedValue]);
+        }
+    };
 
     const handleSearchMovie = (e: ChangeEvent<HTMLInputElement>) => {
         setRealTimeValue(e.target.value);
@@ -98,7 +112,12 @@ export const Header: React.FC = () => {
 
                     <Visibility visible={!error?.isError}>
                         <div className={styles.inputSearch}>
-                            <input placeholder="Pesquisar" onChange={handleSearchMovie} />
+                            <input
+                                placeholder="Pesquisar"
+                                onChange={handleSearchMovie}
+                                data-testid="input-search"
+                                maxLength={40}
+                            />
                         </div>
 
                         <Visibility visible={!!(listMovie && listMovie?.length > 0)}>
@@ -119,6 +138,13 @@ export const Header: React.FC = () => {
                             </ul >
                         </Visibility>
                     </Visibility >
+
+                    <Visibility visible={(!loading && listMovie?.length === 0)}>
+                        <p className={styles.containerEmpty}>
+                            Não foram encontrados resultados que correspondam aos seus
+                            critérios de busca.
+                        </p>
+                    </Visibility>
                 </div >
             </Visibility >
         </>

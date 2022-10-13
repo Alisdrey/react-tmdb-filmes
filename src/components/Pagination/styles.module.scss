@@ -5,6 +5,10 @@
 
   margin-top: 2.5rem;
 
+  @media screen and (max-width: 519px) {
+    margin: 2.5rem 0;
+  }
+
   @media screen and (max-width: 739px) {
     justify-content: center;
   }
@@ -41,9 +45,12 @@
   }
 
   p {
-    color: var(--gray-300);
     width: 2rem;
-    text-align: center;
-  }
+    padding-top: 0.5rem;
 
+    text-align: center;
+    font-weight: bold;
+
+    color: var(--gray-300);
+  }
 }
